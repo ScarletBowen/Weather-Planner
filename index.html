@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- The basic set up and style is inspired by the review project, Module 21 -->
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+  <link rel="stylesheet" href="style.css"/>
+  <title>City Weather Forecast App</title>
+</head>
+
+<body class="flex-column min-100-vh">
+  <header class="hero">
+    <h1 class="app-title">
+        Check the Weather before You Go!
+    </h1>
+    <p>Search for a city to get the 5-day forecast:
+    </p>
+  </header>
+
+
+  <main class="row">
+    <div>
+      <aside>
+        <div class="card">
+          <h3 class="card-header text-uppercase">Search By City</h3>
+          <form id="user-form" class="card-body">
+            <label class="form-label" for="cityName">Name of City</label>
+            <input name="cityName" id="cityName" type="text" autofocus="true" class="form-input" />
+            <button type="submit" class="btn" class="citySubmit">Get Weather</button>
+          </form>
+        </div>
+
+        <div class="card">
+          <h3 class="card-header text-uppercase">Search History</h3>
+            <div id="history-buttons" class="card-body">
+              <button class="btn">First City</button>
+              <button class="btn">Second City</button>
+              <button class="btn">Third City</button>
+            </div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="card">
+      <h2>Showing Current Weather for <span id="search-term"></span></h2>
+      <div id="container" class="currentWeatherItems">
+        <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon" class="w-icon">
+        <div id="date">Date:</div>
+        <div>Temp:</div>
+        <div>Wind:</div>
+        <div>Humidty:</div>
+      </div>
+    </div> 
+    
+    <div class="card">
+      <h2>Five-Day Weather Forecast <span class="future-forecast"></span></h2>
+      <div id="container"></div>
+    </div> 
+   
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
