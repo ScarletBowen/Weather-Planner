@@ -1,59 +1,91 @@
+// variables for form input
 var userFormEl = document.querySelector('#user-form');
 var cityInputEl = document.querySelector('#cityName');
 var citySubmitButtonEl = document.querySelector('citySubmit');
+
+// variables for weather information
 var dateEL = document.getElementById('date');
 var currentWeatherItemsEl = document.querySelector('currentWeatherItems')
 var containerEl = document.querySelector('container');
+
+// variables for search history 
 var searchTerm = document.querySelector('search-term');
 var futureForecastEL = document.querySelector('future-forecast');
 
-
+// event listeners
 userFormEl.addEventListener('submit', formSubmitHandler);
 // cityInputEl.addEventListener('click', formSubmitHandler);
 // citySubmitButtonEl.addEventListener('click',formSubmitHandler);
 
+// user inputs a city name and we first first get coordinates
 function formSubmitHandler(event) {
   event.preventDefault();
 
   var cityName = cityInputEl.value.trim();
     if (cityName) {
       getCoordinates(cityName);
-      console.log();
-      containerEl.textContent = '';
-      cityName.value = '';
+      // containerEl.textContent = '';
+      // cityName.value = '';
     } else {
       return;
       // window.alert('Please enter a city name');
     }
   };
   
-
   // set variables for lat and lon; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await
-  var locationData = getCoordinates(cityName);
-  var lon = locationData.coord.lon;
-  var lat = locationData.coord.lat;
+  // var locationData = getCoordinates(cityName);
+  // var lon = locationData.coord.lon;
+  // var lat = locationData.coord.lat;
 
+// function to call coordinates and then initiate function to display current weather
 function getCoordinates (cityName) {
-      var apiUrl = "api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=ac721f3e341fb446253df6241582894c";
+      var apiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&appid=ac721f3e341fb446253df6241582894c";
       
       fetch(apiUrl)
       .then(function (response) {
         if (response.ok) {
           response.json().then(function (data) {
-            console.log('data?')
-            return true
+            console.log(data);
+            getWeatherForecast();
           });
         } else {
           console.log('Api is not working')
         }
       })
-      .catch(function (error) {
-        alert('Enter a city name');
-      });
-  }
+      var lat = data.coord.lat;
+      var lon = data.coord.lon;
+    }
+    
 
+//get the weather forecast based on city latitude & longitude
+function getWeatherForecast(lat, lon) {
   
-  // console.log(results);
+  var forecastUrl = "https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&appid=ac721f3e341fb446253df6241582894c";
+
+    console.log();
+
+    fetch(forecastUrl)
+      .then(function (response) {
+        if (response.ok) {
+          response.json().then(function (data) {
+            console.log(data);
+            showWeatherForecast();
+          });
+        } else {
+          console.log('Api is not working')
+        }
+      })
+    }
+          
+
+
+
+  //   // https://stackoverflow.com/questions/73340367/combining-two-javascript-api-requests-inside-of-a-function
+  // asynch function getWeather() {
+  //   var locationData = await getCoordinates(cityName);
+  //   
+  
+
 
 // var buttonClickHandler = function (event) {
 //   var prevCity = event.target.getAttribute('first-city');
