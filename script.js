@@ -31,11 +31,7 @@ function formSubmitHandler(event) {
       // window.alert('Please enter a city name');
     }
   };
-  
-  // set variables for lat and lon; https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await
-  // var locationData = getCoordinates(cityName);
-  // var lon = locationData.coord.lon;
-  // var lat = locationData.coord.lat;
+
 
 // function to call coordinates and then initiate function to display current weather
 function getCoordinates (cityName) {
@@ -45,15 +41,16 @@ function getCoordinates (cityName) {
       .then(function (response) {
         if (response.ok) {
           response.json().then(function (data) {
+            var lat = data[0].lat;
+            var lon = data[0].lon;
             console.log(data);
-            getWeatherForecast();
+            getWeatherForecast(lat, lon);
           });
         } else {
           console.log('Api is not working')
         }
       })
-      var lat = data.coord.lat;
-      var lon = data.coord.lon;
+      
     }
     
 
@@ -69,7 +66,7 @@ function getWeatherForecast(lat, lon) {
         if (response.ok) {
           response.json().then(function (data) {
             console.log(data);
-            showWeatherForecast();
+            // showWeatherForecast();
           });
         } else {
           console.log('Api is not working')
@@ -77,15 +74,15 @@ function getWeatherForecast(lat, lon) {
       })
     }
           
+function showWeatherForecast() {
 
 
-
-  //   // https://stackoverflow.com/questions/73340367/combining-two-javascript-api-requests-inside-of-a-function
-  // asynch function getWeather() {
-  //   var locationData = await getCoordinates(cityName);
-  //   
-  
-
+}
+// var showWeather = function (data, searchTerm) {
+//   if (weather.length === 0) {
+//     containerEl.textContent = 'No city weather forecast found.';
+//     return;
+//   }
 
 // var buttonClickHandler = function (event) {
 //   var prevCity = event.target.getAttribute('first-city');
@@ -97,29 +94,9 @@ function getWeatherForecast(lat, lon) {
 //   }
 // };
 
-// `https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid=ac721f3e341fb446253df6241582894c'
 
-// 
 
-// var getFeaturedRepos = function (language) {
-//   var apiUrl = 'https://api.github.com/search/repositories?q=' + language + '+is:featured&sort=help-wanted-issues';
 
-//   fetch(apiUrl).then(function (response) {
-//     if (response.ok) {
-//       response.json().then(function (data) {
-//         displayRepos(data.items, language);
-//       });
-//     } else {
-//       alert('Error: ' + response.statusText);
-//     }
-//   });
-// };
-
-// var showWeather = function (data, searchTerm) {
-//   if (weather.length === 0) {
-//     containerEl.textContent = 'No city weather forecast found.';
-//     return;
-//   }
 
 //   repoSearchTerm.textContent = searchTerm;
 
