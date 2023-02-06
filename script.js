@@ -74,50 +74,41 @@ function getWeatherForecast(lat, lon) {
       .then(function (response) {
         if (response.ok) {
           response.json().then(function (data) {
-            var date = data['dt'];
-            var temp = data['main']['temp'] + "F";
-            var wind = data['wind']['speed'] + "MPH";
-            var humid = data['main']['humidity'] + "%";
-
-            date.innerHTML = nameValue;
-            temp.innerHTML = tempValue;
-            wind.innerHTML = windValue;
-            humid.innerHTML = humidityValue;
+            console.log(data);
+            var date = data.list[0].dt_txt;
+            var temp = data.list[0].main.temp + "F";
+            var wind = data.list[0].wind.speed + "MPH";
+            var humid = data.list[0].main.humidity + "%";
 
             console.log(data);
-            // showWeatherForecast();
+          showWeatherForecast();
           });
         } else {
           console.log('Api is not working')
         }
       })
+    }
     
 
-  //  //display current date
-  // var currentDate = document.querySelector("#current-date")
-  // currentDate.textContent = currentDate;
-  // currentDate.style.display = "block";
-
 // This strategy for displaying the data was inspired by this youtube: https://www.youtube.com/watch?v=Mc1w6Q-nxzM
-// function showWeatherForecast(data) {
-//   var currentWeatherItemsEl = document.querySelector("currentWeatherItems");
+function showWeatherForecast(date, temp, wind, humid) {
+  var currentWeatherItemsEl = document.querySelector("currentWeatherItems");
 
+  var date = document.createElement("p");
+  date.textContent = date;
+  currentWeatherItemsEl.append(date);
 
-  // var date = document.createElement("div");
-  // date.textContent = "Date" = data.dt;
-  // currentWeatherItemsEl.append(date);
+  var temp = document.createElement("p");
+  temp.textContent = temp;
+  currentWeatherItemsEl.append(temp);
 
-  // var temp = document.createElement("div");
-  // temp.textContent = "Temp: " + data.main.temp + "F";
-  // currentWeatherItemsEl.append(temp);
+  var wind = document.createElement("p");
+  wind.textContent = wind;
+  currentWeatherItemsEl.append(wind);
 
-  // var wind = document.createElement("div");
-  // wind.textContent = "Wind " + data.wind_speed;
-  // currentWeatherItemsEl.append(wind);
-
-  // var humid = document.createElement("div");
-  // humid.textContent = "Humidity: " + data.main.humidity + "%";
-  // currentWeatherItemsEl.append(humid);
+  var humid = document.createElement("p");
+  humid.textContent = humidity;
+  currentWeatherItemsEl.append(humid);
 
 }
 
