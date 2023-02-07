@@ -75,13 +75,11 @@ function getWeatherForecast(lat, lon) {
         if (response.ok) {
           response.json().then(function (data) {
             console.log(data);
-            var date = data.list[0].dt_txt;
             var temp = data.list[0].main.temp + "F";
             var wind = data.list[0].wind.speed + "MPH";
             var humid = data.list[0].main.humidity + "%";
-
-            console.log(data);
-          showWeatherForecast();
+          console.log(temp);
+          showWeatherForecast(temp, wind, humid);
           });
         } else {
           console.log('Api is not working')
@@ -89,26 +87,31 @@ function getWeatherForecast(lat, lon) {
       })
     }
     
+            
 
 // This strategy for displaying the data was inspired by this youtube: https://www.youtube.com/watch?v=Mc1w6Q-nxzM
-function showWeatherForecast(date, temp, wind, humid) {
-  var currentWeatherItemsEl = document.querySelector("currentWeatherItems");
+function showWeatherForecast(temp, wind, humid) {
+  var currentWeatherItemsEl = document.getElementById("#currentContainer");
+  // var date = data.list[0].clouds.dt_txt;
+  // var temp = data.list[0].main.temp + "F";
+  // var wind = data.list[0].wind.speed + "MPH";
+  // var humid = data.list[0].main.humidity + "%";
+  
+  // var day = document.createElement('p');
+  // day.textContent = date;
+  // currentWeatherItemsEl.append(date);
 
-  var date = document.createElement("p");
-  date.textContent = date;
-  currentWeatherItemsEl.append(date);
+  var temperature = document.createElement('p');
+  temperature.textContent = temp;
+  currentWeatherItemsEl.append(temperature);
 
-  var temp = document.createElement("p");
-  temp.textContent = temp;
-  currentWeatherItemsEl.append(temp);
+  var windspeed = document.createElement('p');
+  windspeed.textContent = wind;
+  currentWeatherItemsEl.append(windspeed);
 
-  var wind = document.createElement("p");
-  wind.textContent = wind;
-  currentWeatherItemsEl.append(wind);
-
-  var humid = document.createElement("p");
-  humid.textContent = humidity;
-  currentWeatherItemsEl.append(humid);
+  var humidity = document.createElement('p');
+  humidity.textContent = humid;
+  currentWeatherItemsEl.append(humidity);
 
 }
 
@@ -141,18 +144,6 @@ function showWeatherForecast(date, temp, wind, humid) {
 //     titleEl.textContent = repoName;
 
 //     repoEl.appendChild(titleEl);
-
-//     var statusEl = document.createElement('span');
-//     statusEl.classList = 'flex-row align-center';
-
-//     if (repos[i].open_issues_count > 0) {
-//       statusEl.innerHTML =
-//         "<i class='fas fa-times status-icon icon-danger'></i>" + repos[i].open_issues_count + ' issue(s)';
-//     } else {
-//       statusEl.innerHTML = "<i class='fas fa-check-square status-icon icon-success'></i>";
-//     }
-
-//     repoEl.appendChild(statusEl);
 
 //     repoContainerEl.appendChild(repoEl);
 //   }
