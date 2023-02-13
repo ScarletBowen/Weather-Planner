@@ -13,7 +13,7 @@
   
   body {
     background-color: var(--primary);
-    margin: 0;
+    margin: 5;
     padding: 0;
     font-family: "IBM Plex Sans", sans-serif;
     color: var(--dark);
@@ -22,7 +22,6 @@
   }
   
   h1,
-  h3,
   h4,
   h5,
   h6 {
@@ -40,38 +39,27 @@
     line-height: 1.25;
   }
   
-  main {
-    margin: 20px auto;
-    width: 94%;
+  h3 {
+    font-size: small;
+
   }
   
+  main {
+    margin: 20px auto;
+  }
+
   p {
-    font-size: 2rem;
+    font-size: 1.2rem;
     text-align: center;
     align-items: center;
   }
-    .column {
-      float: left;
-      width: 25%;
-      padding: 0 10px;
-    }
-
-    .row:after{
-      content: "";
-      display: table;
-      clear: both;
-    }
-
-    .container {
-      float: right;
-    }
-
+ 
    .btn {
     font-size: 1.3rem;
     text-decoration:none;
     padding: 6px 5px;
-    width: 50%;
-    display: block;
+    min-width: 12rem;
+    position: relative;
     margin: 5px 0;
     border-radius: var(--border-radius);
     color: var(--primary);
@@ -138,35 +126,44 @@
     box-shadow: 6px 5px var(--light-dark);
   }
   
-  .list-group {
-    padding: 0;
-    list-style: none;
-    align-items: right;
+  ul {
+   list-style-type: none;
+   align-items: left;
+  }
+
+  li {
+    font-size: 14px;
   }
   
-  .list-item {
-    margin-bottom: 10px;
-    padding: 1.5%;
-    border-radius: var(--border-radius);
-    background-color: var(--light-dark);
-    color: var(--primary);
-    text-decoration: none;
-  }
-  
-  .list-item:hover {
-    background-color: var(--dark);
-  }
 
   
   /* CARDS */
-  .card {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
+  .search-card {
+    max-width: 15rem;
     padding: 5px;
     margin: 0 0 20px 0;
     border: 3px solid var(--dark);
     border-radius: var(--border-radius);
+  }
+  .search-card-header {
+    min-width: 10rem;
+    color: var(--primary);
+    background-color: var(--dark);
+    padding: 2.5%; */
+    /* border-radius: calc(.18rem - 1px) calc(.18rem - 1px) 0 0; */
+  }
+/* current weather */
+  .card {
+    display:flex;
+    position: absolute;
+    top: 15rem;
+    left: 18rem;
+    right: 2rem;
+    height: 20rem;
+    padding: 5px;
+    border: 3px solid var(--dark);
+    border-radius: var(--border-radius);
+  
   }
   
   .card-header {
@@ -176,15 +173,14 @@
     border-radius: calc(.18rem - 1px) calc(.18rem - 1px) 0 0;
   }
   
-  .card-body {
-    padding: 2.5%;
-  }
   
   /* FORM */
   .form-label,
   .form-input,
   .form-textarea {
-    display: block;
+    display: flex;
+    position: relative;
+    max-width: 12rem;
   }
   
   .form-label {
@@ -193,7 +189,7 @@
   }
   
   .form-input {
-    width: 50%;
+    max-width: 12rem;
     padding: 3%;
     margin: 5px 0;
     font-size: 1.2rem;
@@ -220,16 +216,9 @@
   }
 
   .weatherContainer {
-    background-color: white;
-  }
-
-  .weatherContainer card {
-
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-    padding: 5px;
-    margin: 0 0 20px 0;
+    position: absolute;
+    background-color: lightseagreen;
+    padding: 3px;
     border: 3px solid var(--dark);
     border-radius: var(--border-radius);
   }

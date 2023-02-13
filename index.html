@@ -21,46 +21,37 @@
   </header>
 
 
-  <main class="row">
-    <div>
-      <aside>
-        <div class="card">
-          <h3 class="card-header text-uppercase">Search By City</h3>
-          <form id="user-form" class="card-body">
-            <label class="form-label" for="cityName">Name of City</label>
+  <main>
+        <div class="search-card">
+          <h3 class="search-card-header text-uppercase">Search By City</h3>
+          <form id="user-form">
+            <label class="form-label" for="cityName" placeholder="Name of City"></label>
             <input name="cityName" id="cityName" type="text" autofocus="true" class="form-input" />
             <button type="submit" class="btn" class="citySubmit">Get Weather</button>
           </form>
         </div>
 
-        <div class="card">
-          <h3 class="card-header text-uppercase">Search History</h3>
-            <div id="history-buttons" class="card-body">
-              <button class="btn">First City</button>
-              <button class="btn">Second City</button>
-              <button class="btn">Third City</button>
-            </div>
+        <div class="search-card">
+          <h3 class="search-card-header text-uppercase">Search History</h3>
+              <ul id="search-history"></ul>
         </div>
-      </aside>
-    </div>
 
-    <div class="card">
-      <h2>Showing Current Weather for <span id="search-term"></span></h2>
-      <div class="currentWeatherItems">
-        <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="weather icon" class="w-icon">
-        <h2 id="temp">Temperature: </h2>
-        <h2 id="wind">Wind: </h2>
-        <h2 id="humid">Humidity: </h2>
-      </div>
-    </div> 
+     <div class="card" >
+        <h2>Showing Current Weather for <span id="search-term"></span>
+          <div id="currentWeatherItems"></div> 
+              <img id="icon">
+        </h2> 
+      </div> 
     
-    <div class="card">
+    <div>
+      <br>
       <h2>Five-Day Weather Forecast <span class="future-forecast"></span></h2>
+      <br>
       <div id="futureContainer"></div>
     </div> 
    
   </main>
-
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="script.js"></script>
 </body>
 
