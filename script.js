@@ -7,7 +7,7 @@ var searchHistory = [];
 var cityInputs = document.querySelector('#search-history');
 
 
-// event listeners
+// initial search event listener
 userFormEl.addEventListener('submit', formSubmitHandler);
 
 // user inputs a city name and we first first get coordinates and set cities to local storage
@@ -18,73 +18,112 @@ function formSubmitHandler(event) {
     if (cityName) {
       getCoordinates(cityName);
       cityInputs.textContent = '';
-      // cityName.value = '';
-
+      
     } else {
       return;
 
     }
- // push search bar value in saved
-searchHistory.push(cityName);
-cityInputEl.value = "";
-// set localStorage historyList item with saved
-localStorage.setItem("searchHistoryList", JSON.stringify(searchHistory));
-// call listBuilder function and pass search bar value as a argument
-listCities();
-
-// set search bar value to ""(empty string)
-// var reset = document.querySelector('form').reset();
+    // push search bar value in saved
+    searchHistory.push(cityName);
+    cityInputEl.value = "";
+    // set localStorage historyList item with saved
+    localStorage.setItem("searchHistoryList", JSON.stringify(searchHistory));
+    // call listBuilder function and pass search bar value as a argument
+    listCities();
   };
 
+  // create buttons with previous cities searched
 function listCities() {
   cityInputs.innerHTML = "";
-  cityInputs.textContent = searchHistory.length;
+  var cityInput = JSON.parse(localStorage.getItem("searchHistoryList"));
   // Render a new li for each cityInput
-  for (var i = 0; i < searchHistory.length; i++) {
-    var city = searchHistory[i];
+  for (var i = 0; i < cityInput.length; i++) {
+    var city = cityInput[i];
 
-    var li = document.createElement("li");
-    li.textContent = city;
-    li.setAttribute("data-index", i);
+    var btn = document.createElement("button");
+    btn.textContent = city;
+    city.value = "";
+    btn.setAttribute("data-index", i);
+  // create event listener for when buttons are clicked
+    btn.addEventListener("click", function(event) {
+      var storedCity = event.target.getAttribute("data-index");
+      console.log();
+      
+      getCoordinates(storedCity);
+   
+    });
 
-    cityInputs.appendChild(li);
+    cityInputs.appendChild(btn);
   }
 }
+
+// function getCoordinates(storedCity) {
+//   // var  = JSON.parse(localStorage.getItem("searchHistoryList"));
+//   // var selectedCity = cityBtn[cityBtn];
+//   var apiUrl = "http://api.openweathermap.org/data/2.5/weather?&units=imperial&q=" + storedCity + "&appid=ac721f3e341fb446253df6241582894c";
+      
+//   fetch(apiUrl)
+//   .then(function (response) {
+//     if (response.ok) {
+//       response.json().then(function (data) {
+//         console.log(data);
+//         var date = new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"});
+//         var icon = data.weather[0].icon;
+//         var temp = data.main.temp + " F";
+//         var wind = data.wind.speed + " MPH";
+//         var humid = data.main.humidity + " %";
+//         var lat = data.coord.lat;
+//         var lon = data.coord.lon;
+    
+//         getWeatherForecast(lat, lon);
+//         showCurrentWeather(date, icon, temp, wind, humid);
+//       });
+//     } else {
+//       console.log('Api is not working')
+//     }
+//   })
+// }
+
 // This function is being called below and will run when the page loads.
 function init() {
-  // Get stored cityInputs from localStorage
-  var storedSearches = JSON.parse(localStorage.getItem("searchHistory"));
 
-  // If cityInputs were retrieved from localStorage, update the searchHistory array to it
-  if (storedSearches !== null) {
-    searchHistory = storedSearches;
-  }
-
-  // This is a helper function that will render todos to the DOM
-  listCities();
-}
-
-
+};
 
 // function to call coordinates and then initiate function to display current weather
 function getCoordinates (cityName) {
-      var apiUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&appid=ac721f3e341fb446253df6241582894c";
+      var apiUrl = "http://api.openweathermap.org/data/2.5/weather?&units=imperial&q=" + cityName + "&appid=ac721f3e341fb446253df6241582894c";
       
       fetch(apiUrl)
       .then(function (response) {
         if (response.ok) {
           response.json().then(function (data) {
-            var lat = data[0].lat;
-            var lon = data[0].lon;
             console.log(data);
+            var date = new Date().toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"});
+            var icon = data.weather[0].icon;
+            var temp = data.main.temp + " F";
+            var wind = data.wind.speed + " MPH";
+            var humid = data.main.humidity + " %";
+            var lat = data.coord.lat;
+            var lon = data.coord.lon;
+        
             getWeatherForecast(lat, lon);
+            showCurrentWeather(date, icon, temp, wind, humid);
           });
         } else {
           console.log('Api is not working')
         }
-      })
-      document.querySelector("#search-term").textContent = cityName;
-    }
+      // If a city is stored in local storage, display it in the input element
+      var storedCity = JSON.parse(localStorage.getItem("searchHistoryList"));
+      if (storedCity) {
+      cityName.value = storedCity;
+      }
+})
+}
+
+    
+    //   document.querySelector("#search-term").textContent = cityName;
+    //   document.querySelector("#weather-btn").textContent = storedCity;
+    // }
     
 
 //get the weather forecast based on city latitude & longitude
@@ -95,17 +134,10 @@ function getWeatherForecast(lat, lon) {
       .then(function (response) {
         if (response.ok) {
           response.json().then(function (data) {
-            var date = data.list[0].dt_txt;
-            var icon = data.list[0].weather[0].icon;
-            var temp = data.list[0].main.temp + "F";
-            var wind = data.list[0].wind.speed + "MPH";
-            var humid = data.list[0].main.humidity + "%";
-            var fiveDays = [data.list[0], data.list[8], data.list[16], data.list[24], data.list[32]]
-            console.log(date);
-            console.log(temp, wind, humid);
-          
-            showCurrentWeather(date, icon, temp, wind, humid);
             
+            var fiveDays = [data.list[0], data.list[8], data.list[16], data.list[24], data.list[32]]
+            console.log(data);
+           
             showFutureWeather(fiveDays);
           });
         } else {
@@ -133,7 +165,7 @@ function showFutureWeather(fiveDays) {
     console.log(fiveDays[i])
 
     var icon = fiveDays[i].weather[0].icon;
-    var date = fiveDays[i].dt_txt;
+    var date = fiveDays[i].dt_txt.substring(0,10);
     var temp = fiveDays[i].main.temp + " F" + " Temperature";
     var wind = fiveDays[i].wind.speed + " MPH" + " Wind";
     var humid = fiveDays[i].main.humidity + " %" + " Humidity";
