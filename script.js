@@ -75,7 +75,7 @@ function init() {
 
 // function to call coordinates and then initiate function to display current weather
 function getCoordinates(cityName) {
-  var apiUrl = "http://api.openweathermap.org/data/2.5/weather?&units=imperial&q=" + cityName + "&appid=ac721f3e341fb446253df6241582894c";
+  var apiUrl = "https://api.openweathermap.org/data/2.5/weather?&units=imperial&q=" + cityName + "&appid=ac721f3e341fb446253df6241582894c";
   console.log(cityName);
   fetch(apiUrl)
     .then(function (response) {
@@ -127,7 +127,7 @@ function showCurrentWeather(date, icon, temp, wind, humid) {
 
   var currentWeatherContainer = document.getElementById("currentWeatherItems");
   currentWeatherContainer.innerHTML = `<p>Date: ${date}</p><p>Temperature: ${temp}</p><p>Wind: ${wind}</p><p>Humidity: ${humid}</p>`;
-  var iconUrl = "http://openweathermap.org/img/wn/" + icon + ".png";
+  var iconUrl = "https://openweathermap.org/img/wn/" + icon + ".png";
   document.querySelector("#icon").src = iconUrl;
   var iconImg = document.createElement("img");
   iconImg.src = iconUrl;
@@ -166,7 +166,7 @@ function showFutureWeather(fiveDays) {
     weatherContainer.append(humidity);
 
     var iconImg = document.createElement('img');
-    iconImg.src = "http://openweathermap.org/img/wn/" + icon + ".png";
+    iconImg.src = "https://openweathermap.org/img/wn/" + icon + ".png";
     weatherContainer.append(iconImg);
 
     futureWeather.append(weatherContainer);
