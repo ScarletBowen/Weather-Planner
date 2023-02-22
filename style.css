@@ -34,7 +34,7 @@
   h2 {
     text-align: center;
     font-weight: 700;
-    margin: 0;
+    margin: 1em;
     color: var(--dark);
     line-height: 1.25;
   }
@@ -173,6 +173,14 @@
     border-radius: calc(.18rem - 1px) calc(.18rem - 1px) 0 0;
   }
   
+  .weather-card {
+    display:flex;
+    position: absolute;
+    top: 15rem;
+    left: 18rem;
+    right: 2rem;
+    height: 20rem;
+  }
   
   /* FORM */
   .form-label,
